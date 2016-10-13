@@ -1,0 +1,27 @@
+vpm_vehicule_homepage:
+    path:     /
+    defaults: { _controller: VPMVehiculeBundle:Default:index }
+
+vpm_constructeur_liste:
+    path:     /constructeur/liste
+    defaults: { _controller: VPMVehiculeBundle:Constructeur:liste }
+
+vpm_typevehicule_liste:
+    path:     /typevehicule/liste
+    defaults: { _controller: VPMVehiculeBundle:TypeVehicule:liste }
+
+vpm_cylindre_liste:
+    path:     /cylindre/liste
+    defaults: { _controller: VPMVehiculeBundle:Cylindre:liste }
+
+vpm_modele_liste:
+    path:     /modele/liste
+    defaults: { _controller: VPMVehiculeBundle:Modele:liste }
+
+vpm_modele_annee:
+    path:     /modele/annee
+    defaults: { _controller: VPMVehiculeBundle:Modele:annee }
+
+vpm_modele_selection:
+    path:     /modele/selection
+    defaults: { _controller: VPMVehiculeBundle:Modele:selection }

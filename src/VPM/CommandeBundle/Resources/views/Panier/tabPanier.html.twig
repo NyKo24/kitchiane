@@ -1,0 +1,14 @@
+{% block tabPanier %}
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<ul class="nav nav-pills">
+			  	<li role="presentation"><a id="navPanier" class="" href="{{ path('vpm_panier_afficher')}} ">1. Récapitulatif du panier</a></li>
+	        	<li role="presentation"><a id="navConnexion" href="{{ path('vpm_panier_connexion')}} ">2. Connexion</a></li>
+	        	<li role="presentation"><a id="navAdresse" href="{{ path('vpm_panier_livraison')}} ">3. Adresse</a></li>
+	        	<li role="presentation"><a id="navLivraison" href="{{ path('vpm_panier_transporteur')}}">4. Livraison</a></li>
+	        	<li role="presentation"><a id="navPaiement" href="{{ path('vpm_panier_paiement') }}">5. Paiement</a></li>
+			</ul>
+		</div>
+	</div>
+		
+{% endblock %}

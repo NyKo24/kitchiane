@@ -1,0 +1,53 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+  app.form.registration:
+      class: VPM\UtilisateurBundleForm\InscriptionType
+      tags:
+        - { name: form.type, alias: app_user_registration }
+  acme_user.form.handler.login_success:
+        class: VPM\UtilisateurBundle\Handler\LoginSuccessHandler
+        arguments: ['@router']
+        scope: request
+        public: false
+
+  acme_user.form.handler.login_failure:
+        class: VPM\UtilisateurBundle\Handler\LoginFailureHandler
+        arguments: ['@router']
+        scope: request
+        public: false
+
+  commande_service:
+        class: VPM\CommandeBundle\Service\CommandeService
+        arguments: ['@doctrine.orm.entity_manager','@transporteur_service','@facture_service', "@service_container"]
+  commande_service:
+        class: VPM\AdminBundle\Service\CommandeService
+        arguments: ['@doctrine.orm.entity_manager','@transporteur_service','@facture_service', "@service_container"]
+  transporteur_service:
+        class: VPM\TransporteurBundle\Service\TransporteurService
+        arguments: ['@doctrine.orm.entity_manager','@panier_service']
+  admin_mondial_relay_service:
+        class: VPM\AdminBundle\Service\MondialRelayService
+        arguments: ['@doctrine.orm.entity_manager',"@service_container"]
+  panier_service:
+        class: VPM\CommandeBundle\Service\PanierService
+        arguments: ['@doctrine.orm.entity_manager']
+  facture_service:
+        class: VPM\CommandeBundle\Service\FactureService
+        arguments: ['@doctrine.orm.entity_manager',"@service_container", "@panier_service"]
+  methode_paiement_service:
+        class: VPM\CommandeBundle\Service\MethodePaiementService
+        arguments: ['@doctrine.orm.entity_manager']
+
+  detecte_modele: 
+        class: VPM\VehiculeBundle\Service\DetectModeleService
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+          - { name: kernel.event_listener, event: kernel.request, method: detection }

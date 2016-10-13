@@ -1,0 +1,3 @@
+vpm_transporteur_homepage:
+    path:     /
+    defaults: { _controller: VPMTransporteurBundle:Default:index }

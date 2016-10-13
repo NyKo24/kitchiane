@@ -1,0 +1,307 @@
+{% extends ':back:layout.html.twig' %}
+
+{% block body %}
+    <h1>Commande #{{ commande.id}} - {{ commande.reference }}</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Information commande</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>#</th>
+                        <td>{{ commande.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Réf.</th>
+                        <td>{{ commande.reference }}</td>
+                    </tr>
+                    <tr>
+                        <th>Total TTC</th>
+                        <td>{{ commande.totalCommandeTtc|number_format(2, ',', ' ') }}&euro;</td>
+                    </tr>
+                    <tr>
+                        <th>Total HT</th>
+                        <td>{{ commande.totalCommandeHt|number_format(2, ',', ' ') }}&euro;</td>
+                    </tr>
+                    <tr>
+                        <th>Montant Réel transport HT / TTC</th>
+                        <td>&euro;</td>
+                    </tr>
+                    <tr>
+                        <th>Marge HT / TTC</th>
+                        <td>{{ commande.margeHt }}&euro;</td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Information client</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Prénom NOM</th>
+                        <td>{{ commande.panier.utilisateur.prenom }}&nbsp;{{ commande.panier.utilisateur.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td><a class="btn btn-primary" href="mailto:{{ commande.panier.utilisateur.email }}">{{ commande.panier.utilisateur.email }}</a></td>
+                    </tr>
+                    <tr>
+                        <th>Portable</th>
+                        <td>{{ commande.panier.utilisateur.telPortable }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fixe</th>
+                        <td>{{ commande.panier.utilisateur.telFixe }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nb commande / Total HT/TTC</th>
+                        <td> / -&euro; / &euro;</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse facturation</th>
+                        <td>
+                            <p>{{ commande.adresseFacturation.prenom }}&nbsp;{{ commande.adresseFacturation.nom }}</p>
+                            {% if commande.adresseFacturation.societe %}
+                                <p>{{ commande.adresseFacturation.societe }}</p>
+                            {% endif %}
+                            {% if commande.adresseFacturation.tva %}
+                                <p> TVA : {{ commande.adresseFacturation.tva }}</p>
+                            {% endif %}
+                            {% if commande.adresseFacturation.siret %}
+                                <p>SIRET : {{ commande.adresseFacturation.siret }}</p>
+                            {% endif %}
+                            <p>{{ commande.adresseFacturation.ligne1 }}</p>
+                            {% if commande.adresseFacturation.ligne2 %}
+                                <p>{{ commande.adresseFacturation.ligne2 }}</p>
+                            {% endif %}
+                            {% if commande.adresseFacturation.complement %}
+                                <p>{{ commande.adresseFacturation.complement }}</p>
+                            {% endif %}
+                            <p>{{ commande.adresseFacturation.ville }} - {{ commande.adresseFacturation.cp }}</p>
+                        </td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Produits commandés</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Img</th>
+                            <th>Ref site.</th>
+                            <th>Ref Bihr</th>
+                            <th>Quantite</th>
+                            <th>PU HT Fournisseur</th>
+                            <th>PU HT Vente</th>
+                            <th>Marge HT</th>
+                            <th>Total TTC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produitPanier in commande.panier.produitPanier %}
+                            <tr>
+                                <td>{{ produitPanier.produit.id }}</td>
+                                <td><img width="100" src="{{ asset(produitPanier.produit.firstImage.path) }}"></td>
+                                <td>{{ produitPanier.produit.referenceSite }}</td>
+                                <td>{{ produitPanier.produit.referenceFournisseur }} </td>
+                                <td>{{ produitPanier.quantite }}</td>
+                                <td>{{ produitPanier.produit.prixFournisseurHt|number_format(2, ',', ' ') }}&euro;</td>
+                                <td>{{ produitPanier.produit.prixPublicHt|number_format(2, ',', ' ') }}&euro;</td>
+                                <td>{{ produitPanier.produit.margeHt|number_format(2, ',', ' ') }}&euro;</td>
+                                <td>{{ (produitPanier.produit.prixTtc * produitPanier.quantite)|number_format(2, ',', ' ') }}&euro;</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Adresse expédition</h3>
+              </div>
+              <div class="panel-body">
+                {% if commande.relai != null %}
+                   <table class="table">
+                        <caption>Expédition en point relai</caption>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ commande.relai.idMondialRelay }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ commande.relai.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Adresse1</th>
+                            <td>{{ commande.relai.adresse1 }}</td>
+                        </tr>
+                        {% if commande.relai.adresse2 %}
+                            <tr>
+                                <th>Adresse2</th>
+                                <td>{{ commande.relai.adresse2 }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>CP - Ville</th>
+                            <td>{{ commande.relai.cp }}&nbsp;{{ commande.relai.ville }}</td>
+                        </tr>
+                   </table>
+                   {% else %}
+                    <table class="table">
+                        <caption>Expédition à domicile</caption>
+                        <tr>
+                            <th>Adresse facturation</th>
+                            <td>
+                                <p>{{ commande.adresseLivraison.prenom }}&nbsp;{{ commande.adresseLivraison.nom }}</p>
+                                {% if commande.adresseLivraison.societe %}
+                                    <p>{{ commande.adresseLivraison.societe }}</p>
+                                {% endif %}
+                                {% if commande.adresseLivraison.tva %}
+                                    <p> TVA : {{ commande.adresseLivraison.tva }}</p>
+                                {% endif %}
+                                {% if commande.adresseLivraison.siret %}
+                                    <p>SIRET : {{ commande.adresseLivraison.siret }}</p>
+                                {% endif %}
+                                <p>{{ commande.adresseLivraison.ligne1 }}</p>
+                                {% if commande.adresseLivraison.ligne2 %}
+                                    <p>{{ commande.adresseLivraison.ligne2 }}</p>
+                                {% endif %}
+                                {% if commande.adresseLivraison.complement %}
+                                    <p>{{ commande.adresseLivraison.complement }}</p>
+                                {% endif %}
+                                <p>{{ commande.adresseLivraison.cp }} - {{ commande.adresseLivraison.ville }}</p>
+                            </td>
+                        </tr>
+                    </table>
+                {% endif %}
+              </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Transporteur</h3>
+              </div>
+              <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Transporteur</th>
+                        <td>{{ commande.transporteur.nom }}</td>
+                    </tr>
+                    {% if commande.suivi != null %}
+                        <tr>
+                            <th>Numéro de suivi</th>
+                            <td>{{ commande.suivi }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Poids</th>
+                        <td>
+                            {% if commande.poids != null %}
+                                <p>{{ commande.poids }}g</p>
+                            {% else %}
+                                <form id="etiquette">
+                                    <input class="form-control" type="text" id="poids" placeholder="Poids en gramme" name="poids">
+                                    <button type="submit" class="btn btn-primary">Générer l'étiquette {{ commande.transporteur.nom }}</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Télechargement etiquette</th>
+                        {% if commande.suivi != null %}
+                            <td>
+                                <ul>
+                                    <li><a class="btn btn-info" href="http://www.mondialrelay.fr{{ A4 }}">Etiquette format A4</a></li>
+                                    <li><a class="btn btn-info" href="http://www.mondialrelay.fr{{ A5 }}">Etiquette format A5</a></li>
+                                </ul>
+                            </td>
+                        {% else %}
+                            <td id="etiquettes"><em>Générer d'abord l'étiquette</em></td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th>Tarif réel HT</th>
+                        <td id="tarif"></td>
+                    </tr>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <ul>
+        <li>
+            <a class="btn btn-info" href="{{ path('admin_commande_index') }}">Retourner à la liste des commandes</a>
+        </li>
+        {# <li>
+            <a href="{{ path('admin_commande_edit', { 'id': commande.id }) }}">Edit</a>
+        </li> #}
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+    $("#etiquette").submit(function(event) {
+       event.preventDefault()
+       var p = $("#poids").val();
+       if (p === "") {
+        alert("Entrez le poids en gramme");
+       } else {
+
+
+        $.post({{ urlGenerationEtiquette }}, {commandeId: '{{ commande.id }}', poids: p}, function(data, textStatus, xhr) {
+           var a4 = $("<li>").append($("<a>").attr({'href': "http://www.mondialrelay.fr" + data.A4, 'class':'btn btn-info'}).html("Etiquette format A4"));
+            var a5 = $("<li>").append($("<a>").addClass('btn').addClass('btn-info').attr('href', "http://www.mondialrelay.fr" +data.A5).html("Etiquette format A5"));
+            var ul = $('<ul>');
+            ul.append(a4);
+            ul.append(a5);
+            $("#etiquettes").append(ul);
+        });
+       }
+       
+       
+
+        return false;
+    });
+    
+        
+    </script>
+{% endblock %}

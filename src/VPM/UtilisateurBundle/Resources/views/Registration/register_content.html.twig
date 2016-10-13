@@ -1,0 +1,75 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		<h3>Inscription</h3>
+		<p>Merci de compléter le formulaire d'inscription</p>
+		{{ form_start(formulaireInscription,{'attr': {'action': path('vpm_utilisateur_inscription')}})}}
+
+		<div class="col s12 m12 l12">
+			  {{ form_errors(formulaireInscription) }}
+		</div>
+
+		{# <div class="card-panel red">{{ form_errors(formulaireInscription) }}</div> #}
+		<div class="input-field col s6 m6 l6">
+			{{ form_row(formulaireInscription.prenom) }}
+		</div>
+		<div class="input-field col s6 m6 l6">
+			{{ form_row(formulaireInscription.nom) }}
+		</div>
+		<div class="input-field col s12 m12 l12">
+			{{ form_row(formulaireInscription.email) }}
+		</div>
+		<div class="input-field col s12 m12 l12">
+			{{ form_row(formulaireInscription.username) }}
+		</div>
+		<div class="input-field col s6 m6 l6">
+			{{ form_row(formulaireInscription.plainPassword.first) }}
+		</div>
+		<div class="input-field col s6 m6 l6">
+			{{ form_label (formulaireInscription.plainPassword.second,"Confirmation du mot de passe") }}   
+			{{ form_widget (formulaireInscription.plainPassword.second) }}
+		</div>
+
+		<div class="input-field col s12 m12 l12">
+			{{ form_errors(formulaireInscription.dateNaissance) }}
+			{{ form_label (formulaireInscription.dateNaissance,"Date de naissance") }}   
+			{{ form_widget (formulaireInscription.dateNaissance, {'attr': {'class': 'datepicker'}}) }}
+		</div>
+
+		 <input type="submit" name="envoyer" class="waves-effect waves-light btn">
+
+		  {# Génération automatique des champs pas encore écrits.
+		     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+		     et tous les champs cachés (type « hidden »). #}
+		  {{ form_rest(formulaireInscription) }}
+	{{ form_end(formulaireInscription)}}
+	</div>
+	
+	
+	
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{asset('components/Materialize/js/date_picker/picker.date.js')}}"></script>
+	<script type="text/javascript" src="{{asset('components/Materialize/js/date_picker/picker.js')}}"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+	   	 	$('.datepicker').pickadate({
+			   selectMonths: true, // Creates a dropdown to control month
+			   selectYears: 90, // Creates a dropdown of 15 years to control year
+			   monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+				monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+				weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+				weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+				showMonthsShort: true,
+				showWeekdaysFull: false,
+				 firstDay: 1,
+				 min: new Date(1915,1,1),
+				 max: new Date()
+			});
+	 	 });
+	</script>
+{% endblock %}

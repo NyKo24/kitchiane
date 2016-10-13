@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block titrePage %}Acceuil - Huile moto pas cher{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta name="description" content="{% block metaDescription %}{% endblock %}" />
+	<meta name="keywords" content="{% block metaKeyword %}{% endblock %}" />
+	<meta name="author" content="Nicolas BORDES (AdviseMe SASU) pour VPM Racing SAS" />
+	{% block stylesheets %}
+            {# <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" /> #}
+            <link rel="stylesheet" type="text/css" href="{{ asset('statique/css/bootstrap-custom.min.css') }}">
+            <link href="{{ asset('statique/css/mystyle.css') }}" rel="stylesheet" />
+            <link href="{{ asset('statiqie/css/sass.css') }}" rel="stylesheet" />
+            <link rel="stylesheet" href="{{ asset('components/font-awesome/css/font-awesome.min.css') }}">
+            {# <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet"> #}
+   {% endblock %}
+</head>
+<body>
+	<header>
+	    {{ include(":front:menu.html.twig") }}
+	</header>
+
+	{{ include(":front:search.html.twig") }}
+	
+	{{ include(":front:selectmoto.html.twig")}}
+
+	{{ render(controller("VPMProduitBundle:Categorie:navBar"))}}
+
+	<main class="container">
+		<hr>
+		<div class="row">
+			{% block topPage %}
+			{% endblock %}
+		</div>
+		
+		<div class="row">
+			 {{ include(':front:flashMessage.html.twig') }}
+		</div>
+
+		<div class="row">
+			{% block body %}
+    		corps de la page 
+    	
+    	    {% endblock %}
+		</div>
+    	
+		<hr>
+		{{include(":front:valeurs.html.twig")}}
+
+	</main>	
+	
+	{{ include(":front:footer.html.twig") }}
+
+	<div class="chat">
+        <div class="chat-icon">
+            <i class="fa fa-comments-o fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="chat-box">
+            <div class="header">
+                <span class="title-company">Kit chaine</span>
+                <span class="response-time">Répond généralement en moins de 30 min</span>
+                <div class="people">
+                    <div class="person">
+                        <img src="{{ asset('chat/person/nicolas.png') }}">
+                        <p class="name">Nicolas</p>
+                    </div>
+                    <div class="person">
+                        <img src="{{ asset('chat/person/frederic.jpg') }}">
+                        <p class="name">Frédéric</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box-message">
+                <div class="messages">
+                    <div class="question">
+                        <span class="message">Bonjour, j'ai une question</span>
+                        <span class="vue">Pas encore vue</span>
+                    </div>
+                    <div class="reponse">
+                        <img src="{{ asset('chat/person/frederic.jpg') }}">
+                        <div class="message-response">
+                            <span class="message">Bonjour, oui je vous écoute</span>
+                            <span class="vue">A l'intant</span>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <span class="message">Bonjour, j'ai une question</span>
+                        <span class="vue">Pas encore vue</span>
+                    </div>
+                    <div class="alert-email">
+                        <span class="info">Recevez la réponse par email</span>
+                        <div class="input">
+                            <input type="email" placeholder="Votre email" class="email-input" name="">
+                            <span class="envoyer">Valider</span>
+                        </div>
+                        
+                    </div>
+                    <div class="reponse">
+                        <img src="{{ asset('chat/person/frederic.jpg') }}">
+                        <div class="message-response">
+                            <span class="message">Bonjour, oui je vous écoute</span>
+                            <span class="vue">A l'intant</span>
+                        </div>
+                    </div>
+                </div>
+               <div class="area-tapping">
+                    <textarea class="input" id="inputChat" placeholder="Rédiger une question..." name=""></textarea>
+                    <div id="btSubmitChat" class="submit">
+                        <span >Envoyer</span>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+	 {% block javascript %}
+	 	<script src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+        <script type="text/javascript">
+        	jQuery(document).ready(function($) {
+                var socket = io('http://localhost:3000');
+
+                $("#btSubmitChat").off("click").on('click', function(event) {
+                    putMessage();
+                    return false;
+                });
+
+                var putMessage = function(){
+                    socket.emit('chat message', {message: $('#inputChat').val(), from: "admin"});
+                    $('#inputChat').val('');
+                }
+
+                $("#inputChat").off("keypress").on('keypress', function(event) {
+                    if (event.keyCode == 13 && $(this).is(':focus')) {
+                        putMessage();
+                    }
+                });
+
+                socket.on('chat message', function(objMsg){
+                    var divType
+                    if (objMsg.from == "client") {
+                        divType = $("<div>").addClass('question').append($("<span>").addClass('message').text(objMsg.message)).append($("<div>").addClass('vue').text("A l'instant"));
+                    } else if (objMsg.from == "admin") {
+                        divType = $("<div>").addClass('reponse').append($("<img>").attr('src', '/chat/person/frederic.jpg')).append($("<div>").addClass('message-response').append($("<span>").addClass('message').text(objMsg.message)).append($("<div>").addClass('vue').text("A l'instant")));
+                    }
+                    $('.messages').append(divType);
+                    $( ".messages" ).scrollTop( $( ".messages" ).height() + 200 );
+                });
+       //  		$(".carousel-control").on('click', function(event) {
+       //  			event.preventDefault();
+       //  			/* Act on the event */
+       //  		});
+       //  		$(".dropdown").hover(            
+			    //     function() {
+			    //         $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+			    //         $(this).toggleClass('open');        
+			    //     },
+			    //     function() {
+			    //         $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+			    //         $(this).toggleClass('open');       
+			    //     }
+			    // );
+			    
+        		var type,marque,cylindre,modele,annee;
+        		function disabledAll(){
+        			$("#selectMarqueVehicule").prop('disabled');
+        			$("#selectCylindreVehicule").prop('disabled');
+        			$("#selectModeleVehicule").prop('disabled');
+        			$("#selectAnneeVehicule").prop('disabled');
+        		}
+        		disabledAll();
+        		$.get('{{ path("vpm_typevehicule_liste") }}', function(data) {
+        			$("#selectTypeVehicule").children().remove();
+        			$("#selectTypeVehicule").append($("<option>").html("Selectionner un type de véhicule"));
+        			for (var i = 0; i < data.length; i++) {
+        				$("#selectTypeVehicule").append($("<option>").attr('value', data[i].id).html(data[i].nom));
+        			}
+        		});
+
+        		$("#selectTypeVehicule").on('change', function(event) {
+        			type = $(this).val();
+        			$.get('{{path("vpm_constructeur_liste")}}',{type: type}, function(data) {
+	        			$("#selectMarqueVehicule").removeProp('disabled');
+        				$("#selectCylindreVehicule").prop('disabled');
+        				$("#selectModeleVehicule").prop('disabled');
+        				$("#selectAnneeVehicule").prop('disabled');
+
+	        			$("#selectMarqueVehicule").children().remove();
+	        			$("#selectMarqueVehicule").append($("<option>").html("Selectionner une marque"));
+	        			for (var i = 0; i < data.length; i++) {
+	        				$("#selectMarqueVehicule").append($("<option>").attr('value', data[i].id).html(data[i].nom));
+	        			}
+	        		});
+        		});
+
+        		$("#selectMarqueVehicule").on('change', function(event) {
+        			marque = $(this).val();
+        			$.get('{{path("vpm_cylindre_liste")}}',{type: type, marque: marque}, function(data) {
+        				$("#selectCylindreVehicule").removeProp('disabled');
+        				$("#selectModeleVehicule").prop('disabled');
+        				$("#selectAnneeVehicule").prop('disabled');
+        				
+	        			$("#selectCylindreVehicule").children().remove();
+	        			$("#selectCylindreVehicule").append($("<option>").html("Selectionner une cylindré"));
+	        			for (var i = 0; i < data.length; i++) {
+	        				$("#selectCylindreVehicule").append($("<option>").attr('value', data[i].id).html(data[i].taille));
+	        			}
+	        		});
+        		});
+
+        		$("#selectCylindreVehicule").on('change', function(event) {
+        			cylindre = $(this).val();
+        			$.get('{{path("vpm_modele_liste")}}',{type: type, marque: marque, cylindre: cylindre}, function(data) {
+        				$("#selectAnneeVehicule").prop('disabled');
+        				
+	        			$("#selectModeleVehicule").children().remove();
+	        			$("#selectModeleVehicule").append($("<option>").html("Selectionner un modèle"));
+	        			for (var i = 0; i < data.length; i++) {
+	        				$("#selectModeleVehicule").append($("<option>").attr('value', data[i].nom).html(data[i].nom));
+	        			}
+	        		});
+        		});
+
+        		$("#selectModeleVehicule").on('change', function(event) {
+        			modele = $(this).val();
+        			$.get('{{path("vpm_modele_annee")}}',{type: type, marque: marque, cylindre: cylindre, modele: modele}, function(data) {
+        				
+	        			$("#selectAnneeVehicule").children().remove();
+	        			$("#selectAnneeVehicule").append($("<option>").html("Selectionner une année"));
+	        			for (var i = 0; i < data.length; i++) {
+	        				$("#selectAnneeVehicule").append($("<option>").attr('value', data[i].id).html(data[i].annee));
+	        			}
+	        		});
+        		});
+
+        		$("#selectAnneeVehicule").on('change', function(event) {
+        			annee = $(this).val();
+        			
+	        		$("#btSelectMoto").parent().parent().show();
+	        		$("#btSelectMoto").html("Afficher les pièces compatibles pour : " + $("#selectMarqueVehicule option:selected").text() + " - " + $("#selectModeleVehicule option:selected").text() + " en " + $("#selectCylindreVehicule option:selected").text() + "cm3 de " + $("#selectAnneeVehicule option:selected").text());
+        			$("#btSelectMoto").on('click', function(event) {
+        				event.preventDefault();
+        				$.get('{{path("vpm_modele_selection")}}',{type: type, marque: marque, cylindre: cylindre, modele: modele, annee: annee}, function(data) {
+		        			
+		        		});
+        				$("#selectVehicule").hide();
+        				$(this).hide();
+        				$("#monVehicule").show();
+        				$("#monVehicule").children('p').html("Mon véhicule : " + $("#selectMarqueVehicule option:selected").text() + " - " + $("#selectModeleVehicule option:selected").text() + " en " + $("#selectCylindreVehicule option:selected").text() + "cm3 de " + $("#selectAnneeVehicule option:selected").text() + " <a>Changer de véhicule ?</a>");
+        				selectNewVehicule();
+        			});
+
+        		});
+        		selectNewVehicule();
+        		function selectNewVehicule(){
+        			$("#monVehicule").on('click', 'a', function(event) {
+    					event.preventDefault();
+    					$("#monVehicule").hide();
+    					$("#selectVehicule").show();
+    					$("#selectMarqueVehicule").children().remove();
+        				$("#selectCylindreVehicule").children().remove();
+        				$("#selectModeleVehicule").children().remove();
+        				$("#selectAnneeVehicule").children().remove();
+        				$("#selectTypeVehicule option:selected").removeProp('selected');
+        				$("#selectTypeVehicule option").first().prop('selected');
+    				});
+        		}
+        	});
+        </script>
+     {% endblock %}
+     <script type="text/javascript">
+     	
+     </script>
+</body>
+</html>

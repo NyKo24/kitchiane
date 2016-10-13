@@ -1,0 +1,34 @@
+adresse_index:
+    path:     /
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:index" }
+    methods:  GET
+
+adresse_show:
+    path:     /{id}/show
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:show" }
+    methods:  GET
+
+adresse_new:
+    path:     /new
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:new" }
+    methods:  [GET, POST]
+
+adresse_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:edit" }
+    methods:  [GET, POST]
+
+adresse_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:delete" }
+    methods:  DELETE
+
+adresse_sauver_facturation:
+    path: /sauverAdresseFacturation
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:sauverAdresseFacturation"}
+    methods: [POST]
+
+adresse_sauver_livraison:
+    path: /sauverAdresseLivraison
+    defaults: { _controller: "VPMUtilisateurBundle:Adresse:sauverAdresseLivraison"}
+    methods: [POST]

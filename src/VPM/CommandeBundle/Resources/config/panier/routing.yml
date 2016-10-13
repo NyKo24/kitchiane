@@ -1,0 +1,38 @@
+vpm_panier_ajotuer:
+    path:     /ajouterProduit
+    defaults: { _controller: VPMCommandeBundle:Panier:ajouterProduit }
+    methods:  [POST]
+vpm_panier_afficher:
+    path:     /
+    defaults: { _controller: VPMCommandeBundle:Panier:afficher}
+vpm_panier_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: VPMCommandeBundle:Panier:supprimer}
+vpm_panier_set_quantite:
+    path:     /set-quantite/{id}
+    defaults: { _controller: VPMCommandeBundle:Panier:setQuantite}
+vpm_panier_livraison:
+    path:     /livraison
+    defaults: { _controller: VPMCommandeBundle:Panier:adresseLivraison}
+vpm_panier_transporteur:
+    path: /transporteur
+    defaults: { _controller: VPMCommandeBundle:Panier:transporteur}
+    methods: [POST,GET]
+vpm_panier_paiement:
+    path: /paiement
+    defaults: { _controller: VPMCommandeBundle:Panier:paiement}
+vpm_panier_connexion:
+    path: /connexion
+    defaults: { _controller: VPMCommandeBundle:Panier:connexion}
+vpm_paiement_cb:
+    path: /paiement-cb
+    defaults: { _controller: VPMCommandeBundle:Panier:paiementCB}
+vpm_paiement_paypal:
+    path: /paiement-paypal
+    defaults: { _controller: VPMCommandeBundle:Panier:paiementPayPal}
+vpm_paiement_paypal_execute:
+    path: /paypal-execute/{etat}
+    defaults: { _controller: VPMCommandeBundle:Panier:executePayPal}
+vpm_paiement_cb_return:
+    path: /paiement-cb-return/{etat}
+    defaults: { _controller: VPMCommandeBundle:Panier:returnPaiementCB}

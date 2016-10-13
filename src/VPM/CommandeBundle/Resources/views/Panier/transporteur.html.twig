@@ -1,0 +1,137 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+	{{ render(controller('VPMCommandeBundle:Panier:tabNav')) }}
+
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h1>Sélection du transporteur</h1>
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2>Mondial Relay</h2>
+			<div class="img-responsive" id="mondialRelay"></div>
+			
+			<span>Livraison en 48 / 72h après expédition.</span>
+			<h4>Tarif : {{ tarifMondialRelay|number_format(2, ',', ' ') }}&euro;</h4>
+			<h4>Total de votre commande (avec frais de port avec Mondial Relay) : {{ totalAvecMondialRelay|number_format(2, ',', ' ') }}&euro; </h4>
+			<form method="POST" action="{{ path('vpm_panier_transporteur') }}">
+				<input type="hidden" name="mondialRelayId" id="mondialRelayID">
+				<input type="hidden" name="transporteur" value="mondialRelay">
+				<input type="hidden" name="relaiId" id="relaiId">
+				<input type="hidden" name="relaiNom" id="relaiNom">
+				<input type="hidden" name="relaiAdresse1" id="relaiAdresse1">
+				<input type="hidden" name="relaiAdresse2" id="relaiAdresse2">
+				<input type="hidden" name="relaiCP" id="relaiCP">
+				<input type="hidden" name="relaiVille" id="relaiVille">
+				<input type="hidden" name="relaiPays" id="relaiPays">
+				<button id="btnMondial" class="btn btn-primary">Envoyer ma commande en Mondial Relay</button>
+			</form>
+		</div>
+</div>
+<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h2>Colissimo Suivi la Poste</h2>
+				<img class="img-responsive" src="{{ asset('colissimo.png') }}">
+				<span>Livraison en 48h après expédition, suivez votre expédition sur internet.</span>
+				<h4>Tarif : {{ tarifColissimo|number_format(2, ',', ' ') }}&euro; </h4>
+				<h4>Total de votre commande (avec frais de port Colissimo) : {{ totalAvecColissimo|number_format(2, ',', ' ') }}&euro; </h4>
+				<form method="POST" action="{{ path('vpm_panier_transporteur') }}">
+					<input type="hidden" name="transporteur" value="colissimoLaPoste">
+					<button class="btn btn-primary">Envoyer ma commande en Colissimo suivi</button>
+				</form>
+			
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}-
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyBFPMLu687Xu2twn8ncTBfxTKKi9wxwWuQ"></script>  
+	<script type="text/javascript" src="https://widget.mondialrelay.com/parcelshop-picker/v3_2_1/scripts/jquery.plugin.mondialrelay.parcelshoppicker.min.js"></script>  
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {  
+			$("#btnMondial").hide();
+	       // Charge le widget dans la DIV d'id "Zone_Widget" avec les paramètres indiqués  
+	       // et renverra le Point Relais sélectionné par l'utilisateur dans le champs d'ID "Retour_Widget"  
+	        $("#mondialRelay").MR_ParcelShopPicker({     
+	                Target: "#mondialRelayID", // Selecteur JQuery de l'élément dans lequel sera renvoyé l'ID du Point Relais sélectionné (généralement un champ input hidden)  
+	                Brand: "EC006217", // Votre code client Mondial Relay  
+	                Country: "FR", // Code ISO 2 lettres du pays utilisé pour la recherche  
+		       		CSS: 0,
+		       		AllowedCountries: "FR",
+		       		MapStreetView: true,
+		       		MapScrollWheel: true,
+		       		CSS : 6,
+		       		PostCode: {{ app.session.get('panier')["adresseLivraison"].cp}},
+		       		OnParcelShopSelected: function(data){
+		       			$("#btnMondial").show();
+		       			$("#btnMondial").html("Envoyer ma commande au relai " + data.Nom);
+		       			$("#relaiId").val(data.ID);
+		       			$("#relaiNom").val(data.Nom);
+		       			$("#relaiAdresse1").val(data.Adresse1);
+		       			$("#relaiAdresse2").val(data.Adresse2);
+		       			$("#relaiCP").val(data.CP);
+		       			$("#relaiVille").val(data.Ville);
+		       			$("#relaiPays").val(data.Pays);
+		       		}
+		        }); 
+   
+		}); 
+
+	</script>
+
+		<script type="text/javascript">
+
+	jQuery(document).ready(function($) {
+		 $('ul.tabs').tabs();
+		desactiveTab = function()
+		{
+			$(".tabs").children('li').each(function(index, el) {
+				$(el).addClass('disabled');
+				$(el).children('a').removeClass();
+			});
+		}
+
+		switch('{{ app.request.attributes.get('_route') }}') {
+	    case "vpm_panier_afficher'":
+	        desactiveTab();
+	        $("#navPanier").addClass('active');
+	        $("#navPanier").parent().removeClass('disabled');
+
+	        break;
+	    case 'vpm_panier_connexion':
+	       desactiveTab();
+	        $("#navConnexion").addClass('active');
+	        $("#navConnexion").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_livraison':
+	       desactiveTab();
+	        $("#navAdresse").addClass('active');
+	        $("#navAdresse").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_transporteur':
+	       desactiveTab();
+	        $("#navLivraison").addClass('active');
+	        $("#navLivraison").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_paiement':
+	       desactiveTab();
+	        $("#navPaiement").addClass('active');
+	        $("#navPaiement").parent().removeClass('disabled');
+	        break;
+   
+		}	
+	});
+	</script>
+
+{% endblock %}

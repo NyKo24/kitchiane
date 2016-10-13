@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block titrePage %}Admin - Huile moto pas cher{% endblock %}</title>
+	<meta charset="utf-8">
+	<meta name="description" content="{% block metaDescription %}{% endblock %}" />
+	<meta name="keywords" content="{% block metaKeyword %}{% endblock %}" />
+	<meta name="author" content="Nicolas BORDES (AdviseMe SASU) pour VPM Racing SAS" />
+	{% block stylesheets %}
+            <link href="{{ asset('components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
+            <link href="{{ asset('mystyle.css') }}" rel="stylesheet" />
+   {% endblock %}
+</head>
+<body>
+	<header>
+	    {{ include(":back:menu.html.twig") }}
+	</header>
+
+	<main>
+		<hr>
+		<div class="row">
+			{% block topPage %}
+			{% endblock %}
+		</div>
+		
+		<div class="row">
+			<!-- message flash -->
+		</div>
+
+		<div class="container">
+			{% block body %}
+    		 
+    		hello world
+    	    {% endblock %}
+		</div>
+    	
+		<hr>
+	</main>	
+	
+	{{ include(":back:footer.html.twig") }}
+	
+	 {% block javascript %}
+	 	<script src="{{ asset('components/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ asset('components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+     {% endblock %}
+</body>
+</html>

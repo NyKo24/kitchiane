@@ -1,0 +1,15 @@
+vpm_admin_homepage:
+    path:     /
+    defaults: { _controller: VPMAdminBundle:Default:index }
+
+vpm_admin_commande:
+    resource: "@VPMAdminBundle/Resources/config/routing/commande.yml"
+    prefix:   /commande
+
+vpm_admin_produit:
+    resource: "@VPMAdminBundle/Resources/config/routing/produit.yml"
+    prefix:   /produit
+
+vpm_admin_categorie:
+    resource: "@VPMAdminBundle/Resources/config/routing/categorie.yml"
+    prefix:   /categorie

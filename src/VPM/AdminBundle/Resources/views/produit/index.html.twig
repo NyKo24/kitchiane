@@ -1,0 +1,79 @@
+{% extends ':back:layout.html.twig' %}
+
+{% block body %}
+    <h1>Produit list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Nomebay</th>
+                <th>Slug</th>
+                <th>Referencesite</th>
+                <th>Referencefournisseur</th>
+                <th>Prixfournisseurht</th>
+                <th>Prixpublicht</th>
+                <th>Shortdescription</th>
+                <th>Longdescription</th>
+                <th>Metatitre</th>
+                <th>Metadescription</th>
+                <th>Metakeyword</th>
+                <th>Quantite</th>
+                <th>Stock</th>
+                <th>Poids</th>
+                <th>Etat</th>
+                <th>Tousmodel</th>
+                <th>Creation</th>
+                <th>Updateat</th>
+                <th>Contentchanged</th>
+                <th>Majstock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td><a href="{{ path('admin_produit_show', { 'id': produit.id }) }}">{{ produit.id }}</a></td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.nomEbay }}</td>
+                <td>{{ produit.slug }}</td>
+                <td>{{ produit.referenceSite }}</td>
+                <td>{{ produit.referenceFournisseur }}</td>
+                <td>{{ produit.prixFournisseurHt }}</td>
+                <td>{{ produit.prixPublicHt }}</td>
+                <td>{{ produit.shortDescription }}</td>
+                <td>{{ produit.longDescription }}</td>
+                <td>{{ produit.metaTitre }}</td>
+                <td>{{ produit.metaDescription }}</td>
+                <td>{{ produit.metaKeyword }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{% if produit.stock %}Yes{% else %}No{% endif %}</td>
+                <td>{{ produit.poids }}</td>
+                <td>{% if produit.etat %}Yes{% else %}No{% endif %}</td>
+                <td>{% if produit.tousModel %}Yes{% else %}No{% endif %}</td>
+                <td>{% if produit.creation %}{{ produit.creation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if produit.updateAt %}{{ produit.updateAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if produit.contentChanged %}{{ produit.contentChanged|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if produit.majStock %}{{ produit.majStock|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_produit_show', { 'id': produit.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_produit_edit', { 'id': produit.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_produit_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

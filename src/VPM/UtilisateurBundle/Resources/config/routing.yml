@@ -1,0 +1,7 @@
+vpm_utilisateur_adresse:
+    resource: "@VPMUtilisateurBundle/Resources/config/routing/adresse.yml"
+    prefix:   /adresse
+
+vpm_utilisateur_homepage:
+    path:     /
+    defaults: { _controller: VPMUtilisateurBundle:Default:index }

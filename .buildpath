@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="app"/>
+	<buildpathentry kind="src" path="src/VPM/AdminBundle"/>
+	<buildpathentry kind="src" path="src/VPM/CommandeBundle"/>
+	<buildpathentry kind="src" path="src/VPM/HomeBundle"/>
+	<buildpathentry kind="src" path="src/VPM/ImageBundle"/>
+	<buildpathentry kind="src" path="src/VPM/ProduitBundle"/>
+	<buildpathentry kind="src" path="src/VPM/TransporteurBundle"/>
+	<buildpathentry kind="src" path="src/VPM/UtilisateurBundle"/>
+	<buildpathentry kind="src" path="src/VPM/VehiculeBundle"/>
+	<buildpathentry kind="src" path="tests/AppBundle/Controller"/>
+	<buildpathentry kind="src" path="tests/VPMTransporteurBundle/Controller"/>
+	<buildpathentry kind="src" path="var"/>
+	<buildpathentry kind="src" path="vendor"/>
+	<buildpathentry kind="src" path="web"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+</buildpath>

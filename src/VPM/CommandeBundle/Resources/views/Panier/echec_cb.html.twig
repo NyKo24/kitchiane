@@ -1,0 +1,27 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="alert alert-danger">
+			<h3><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Echec du paiement, une erreur s'est produite </h3>
+		</div>
+		<p>Une erreur s'est produite lors du paiement, vous n'avez pas été débité, votre commande n'a pas été prise en compte.</p>
+		<p>La raison de l'échec est la suivante : <strong>{{ raison }}</strong>.</p>
+		<p>Vous souhaitez faire une nouvelle tentative de paiement ? </p>
+		
+		<div class="row">
+			<h4>Paiement</h4>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<a class="btn btn-succes btn-lg" href="{{ path('vpm_paiement_cb') }}"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Payer {{ totalPanier.totalTTC }}&euro; par Carte Bancaire </a>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<a class="btn btn-succes btn-lg" href="{{ path('vpm_paiement_paypal') }}"><i class="fa fa-paypal" aria-hidden="true"></i> Payer {{ totalPanier.totalTTC }}&euro; par PayPal </a>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+{% endblock %}

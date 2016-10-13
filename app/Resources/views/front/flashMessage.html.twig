@@ -1,0 +1,36 @@
+{% if app.session.flashbag.has('success')|length > 0 %}
+	<div class="alert alert-success">
+		<h4><i class="fa fa-check" aria-hidden="true"></i>Succés</h4>
+		{% for message in app.session.flashbag.get('success') %}
+		<p>{{ message }}</p>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if app.session.flashbag.has('info')|length > 0 %}
+	<div class="alert alert-info">
+		<h4><i class="fa fa-info" aria-hidden="true"></i>Information</h4>
+		{% for message in app.session.flashbag.get('info') %}
+		<p>{{ message }}</p>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if app.session.flashbag.has('error')|length > 0 %}
+	<div class="alert alert-danger">
+		<h4><i class="fa fa-exclamation" aria-hidden="true"></i>Erreur</h4>
+		{% for message in app.session.flashbag.get('error') %}
+		<p>{{ message }}</p>
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if app.session.flashbag.has('warning')|length > 0 %}
+	<div class="alert alert-warning">
+		<h4><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Attention</h4>
+		{% for message in app.session.flashbag.get('warning') %}
+		<p>{{ message }}</p>
+		{% endfor %}
+	</div>
+{% endif %}
+

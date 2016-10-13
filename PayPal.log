@@ -1,0 +1,36 @@
+[02-08-2016 12:29:19] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/oauth2/token HTTP/1.1, Host: api.sandbox.paypal.com, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.7.4 (platform-ver=5.5.34; bit=64; os=Darwin_15.5.0; machine=x86_64; crypto-lib-ver=2.2.6; curl=7.43.0), Authorization: Basic cGFpZW1lbnRzX2FwaTEudnBtcmFjaW5nLmNvbTpFTE1NR0hINjc0R0ZWUUdO, Accept: */*, Content-Length: 29, Content-Type: application/x-www-form-urlencoded, , 
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: grant_type=client_credentials
+--------------------------------------------------------------------------------------------------------------------------------
+
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: HTTP/1.1 401 Unauthorized, Date: Mon, 01 Aug 2016 22:29:21 GMT, Server: Apache, PROXY_SERVER_INFO: host=slcsbplatformapiserv3001.slc.paypal.com;threadId=378, Paypal-Debug-Id: 1af8309bb4c8c, CORRELATION-ID: 1af8309bb4c8c, X-PAYPAL-TOKEN-SERVICE: IAAS, Paypal-Debug-Id: 1af8309bb4c8c, Set-Cookie: X-PP-SILOVER=name%3DSANDBOX3.API.1%26silo_version%3D1880%26app%3Dplatformapiserv%26TIME%3D1103994711%26HTTP_X_PP_AZ_LOCATOR%3D; Expires=Mon, 01 Aug 2016 22:59:21 GMT; domain=.paypal.com; path=/; Secure; HttpOnly, Set-Cookie: X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT, Vary: Authorization, Content-Length: 77, Connection: close, Content-Type: application/json, , 
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
+[02-08-2016 12:29:21] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[02-08-2016 12:30:18] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/oauth2/token HTTP/1.1, Host: api.sandbox.paypal.com, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.7.4 (platform-ver=5.5.34; bit=64; os=Darwin_15.5.0; machine=x86_64; crypto-lib-ver=2.2.6; curl=7.43.0), Authorization: Basic cGFpZW1lbnRzX2FwaTEudnBtcmFjaW5nLmNvbTpFTE1NR0hINjc0R0ZWUUdO, Accept: */*, Content-Length: 29, Content-Type: application/x-www-form-urlencoded, , 
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: grant_type=client_credentials
+--------------------------------------------------------------------------------------------------------------------------------
+
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: HTTP/1.1 401 Unauthorized, Date: Mon, 01 Aug 2016 22:30:21 GMT, Server: Apache, PROXY_SERVER_INFO: host=slcsbplatformapiserv3001.slc.paypal.com;threadId=420, Paypal-Debug-Id: 3d6e546c4f6df, CORRELATION-ID: 3d6e546c4f6df, X-PAYPAL-TOKEN-SERVICE: IAAS, Paypal-Debug-Id: 3d6e546c4f6df, Set-Cookie: X-PP-SILOVER=name%3DSANDBOX3.API.1%26silo_version%3D1880%26app%3Dplatformapiserv%26TIME%3D2110627671%26HTTP_X_PP_AZ_LOCATOR%3D; Expires=Mon, 01 Aug 2016 23:00:21 GMT; domain=.paypal.com; path=/; Secure; HttpOnly, Set-Cookie: X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT, Vary: Authorization, Content-Length: 77, Connection: close, Content-Type: application/json, , 
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
+[02-08-2016 12:30:21] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+
+[02-08-2016 12:46:07] PayPal\Core\PayPalHttpConnection : INFO: POST https://api.sandbox.paypal.com/v1/oauth2/token
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : DEBUG: Request Headers 	: POST /v1/oauth2/token HTTP/1.1, Host: api.sandbox.paypal.com, User-Agent: PayPalSDK/PayPal-PHP-SDK 1.7.4 (platform-ver=5.5.34; bit=64; os=Darwin_15.5.0; machine=x86_64; crypto-lib-ver=2.2.6; curl=7.43.0), Authorization: Basic cGFpZW1lbnRzLWZhY2lsaXRhdG9yQHZwbXJhY2luZy5jb206YWNjZXNzX3Rva2VuJHNhbmRib3gkN3R5NmJucTZrM2d2Z3RoNiRhNTc2YzUxNDc2Yjk0MmM4MTU0NTYyNGNmN2NkZGNmYw==, Accept: */*, Content-Length: 29, Content-Type: application/x-www-form-urlencoded, , 
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : DEBUG: Request Data		: grant_type=client_credentials
+--------------------------------------------------------------------------------------------------------------------------------
+
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : INFO: Response Status 	: 401
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : DEBUG: Response Headers	: HTTP/1.1 401 Unauthorized, Date: Mon, 01 Aug 2016 22:46:09 GMT, Server: Apache, PROXY_SERVER_INFO: host=slcsbplatformapiserv3001.slc.paypal.com;threadId=633, Paypal-Debug-Id: 708107ff91c12, CORRELATION-ID: 708107ff91c12, X-PAYPAL-TOKEN-SERVICE: IAAS, Paypal-Debug-Id: 708107ff91c12, Set-Cookie: X-PP-SILOVER=name%3DSANDBOX3.API.1%26silo_version%3D1880%26app%3Dplatformapiserv%26TIME%3D835821399%26HTTP_X_PP_AZ_LOCATOR%3D; Expires=Mon, 01 Aug 2016 23:16:09 GMT; domain=.paypal.com; path=/; Secure; HttpOnly, Set-Cookie: X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT, Vary: Authorization, Content-Length: 77, Connection: close, Content-Type: application/json, , 
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : ERROR: Got Http response code 401 when accessing https://api.sandbox.paypal.com/v1/oauth2/token. {"error":"invalid_client","error_description":"Client Authentication failed"}
+[02-08-2016 12:46:10] PayPal\Core\PayPalHttpConnection : DEBUG: 
+
+================================================================================================================================
+

@@ -1,0 +1,64 @@
+{% extends ':back:layout.html.twig' %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Idbihr</th>
+                <td>{{ categorie.idBihr }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ categorie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Shortdescription</th>
+                <td>{{ categorie.shortDescription }}</td>
+            </tr>
+            <tr>
+                <th>Longdescription</th>
+                <td>{{ categorie.longDescription }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ categorie.slug }}</td>
+            </tr>
+            <tr>
+                <th>Metatitre</th>
+                <td>{{ categorie.metaTitre }}</td>
+            </tr>
+            <tr>
+                <th>Metadescription</th>
+                <td>{{ categorie.metaDescription }}</td>
+            </tr>
+            <tr>
+                <th>Metakeyword</th>
+                <td>{{ categorie.metaKeyword }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{% if categorie.active %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_categorie_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_categorie_edit', { 'id': categorie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

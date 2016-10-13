@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/sass.css">
+</head>
+<body>
+	<div class="chat">
+        <div class="chat-icon">
+            <i class="fa fa-comments-o fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="chat-box">
+            <div class="header">
+                <span class="title-company">Kit chaine</span>
+                <span class="response-time">Répond généralement en moins de 30 min</span>
+                <div class="people">
+                    <div class="person">
+                        <img src="/person/nicolas.png">
+                        <p class="name">Nicolas</p>
+                    </div>
+                    <div class="person">
+                        <img src="/person/frederic.jpg">
+                        <p class="name">Frédéric</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box-message">
+                <div class="messages">
+                    
+                </div>
+               <div class="area-tapping">
+                    <textarea class="input" id="inputChat" placeholder="Rédiger une question..." name=""></textarea>
+                    <div id="btSubmitChat" class="submit">
+                        <span >Envoyer</span>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+    </div>
+
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript">
+    	jQuery(document).ready(function($) {
+    		var socket = io();
+                
+                $("#btSubmitChat").off("click").on('click', function(event) {
+                    putMessage();
+                    return false;
+                });
+
+                var putMessage = function(){
+                	socket.emit('chat message', {message: $('#inputChat').val(), from: "admin"});
+                    $('#inputChat').val('');
+                }
+
+                $("#inputChat").off("keypress").on('keypress', function(event) {
+                    if (event.keyCode == 13 && $(this).is(':focus')) {
+                        putMessage();
+                    }
+                });
+                socket.on('chat message', function(objMsg){
+                    var divType
+                    if (objMsg.from == "client") {
+                        divType = $("<div>").addClass('question').append($("<span>").addClass('message').text(objMsg.message)).append($("<div>").addClass('vue').text("A l'instant"));
+                    } else if (objMsg.from == "admin") {
+                        divType = $("<div>").addClass('reponse').append($("<img>").attr('src', '/chat/person/frederic.jpg')).append($("<div>").addClass('message-response').append($("<span>").addClass('message').text(objMsg.message)).append($("<div>").addClass('vue').text("A l'instant")));
+                    }
+                    $('.messages').append(divType);
+                    $( ".messages" ).scrollTop( $( ".messages" ).height() + 200 );
+                });
+    	});
+
+    </script>
+</body>
+</html>

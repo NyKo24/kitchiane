@@ -1,0 +1,64 @@
+{% extends ':back:layout.html.twig' %}
+
+{% block body %}
+    <h1>Commandes</h1>
+
+    <div class="row">
+        <div class="col-md-3">
+            <a class="btn btn-info" href="">Voir les commande à préparer <span class="badge">4</span></a>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-info" href="">Voir toutes les commandes</a>
+        </div>  
+        <div class="col-md-4">
+            <input class="form-control" type="search" placeholder="Recherche une commande" name="rechercheCommande">
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>Client</th>
+                <th>Total TTC</th>
+                <th>Transporteur</th>
+                <th>Etat</th>
+                <th>Créé le</th>
+                <th>Paiement par</th>
+                <th>Facture</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td><a href="{{ path('admin_commande_show', { 'id': commande.id }) }}">{{ commande.id }}</a></td>
+                <td>{{ commande.reference }}</td>
+                <td>{% if commande.panier != null and commande.panier.utilisateur != null %}{{ commande.panier.utilisateur.prenom }}&nbsp;{{ commande.panier.utilisateur.nom }}{% endif %}</td>
+                <td>{{ commande.totalCommandeTtc|number_format(2, ',', ' ') }}&euro;</td>
+                <td><p>{{ commande.transporteur.nom }}</p>{% if commande.suivi %}<p>{{ commande.suivi }}</p>{% endif %}</td>
+                <td>{{ commande.etat.libelle }}</td>
+                <td>{% if commande.creation %}{{ commande.creation|date('d:m:Y H:i:s') }}{% endif %}</td>
+                <td>{{ commande.methodePaiement.libelle }}</td>
+                <td><a class="btn btn-primary" href="">Telecharger la facture</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a class="btn btn-primary" href="{{ path('admin_commande_show', { 'id': commande.id }) }}">{% if commande.suivi == null %}Expédier{% else %}Voir{% endif %}</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-warning" href="{{ path('admin_commande_edit', { 'id': commande.id }) }}">Modifier</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_commande_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

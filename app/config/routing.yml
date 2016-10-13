@@ -1,0 +1,82 @@
+vpm_admin:
+    resource: "@VPMAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+vpm_home:
+    resource: "@VPMHomeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+vpm_vehicule:
+    resource: "@VPMVehiculeBundle/Resources/config/routing.yml"
+    prefix:   /vehicule
+
+vpm_transporteur:
+    resource: "@VPMTransporteurBundle/Resources/config/routing.yml"
+    prefix:   /transporteur
+
+vpm_image:
+    resource: "@VPMImageBundle/Resources/config/routing.yml"
+    prefix:   /image
+
+vpm_commande:
+    resource: "@VPMCommandeBundle/Resources/config/routing/commande.yml"
+    prefix:   /admin/commande
+
+vpm_produit:
+    resource: "@VPMProduitBundle/Resources/config/produit/routing.yml"
+    prefix:   /produit
+
+vpm_categorie:
+    resource: "@VPMProduitBundle/Resources/config/categorie/routing.yml"
+    prefix:   /categorie
+
+vpm_panier:
+    resource: "@VPMCommandeBundle/Resources/config/panier/routing.yml"
+    prefix:   /panier
+
+vpm_utilisateur:
+    resource: "@VPMUtilisateurBundle/Resources/config/routing.yml"
+    prefix:   /utilisateur
+
+vpm_espace_utilisateur:
+    resource: "@VPMUtilisateurBundle/Resources/config/routing/espace_utilisateur.yml"
+    prefix:   /
+
+vpm_adresse:
+    resource: "@VPMUtilisateurBundle/Resources/config/routing/adresse.yml"
+    prefix:   /adresse
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /inscription
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+fos_user_security_login:
+    defaults: { _controller: FOSUserBundle:Security:login }
+    path: /connexion
+
+fos_user_resetting_request:
+    defaults: { _controller: FOSUserBundle:Resetting:request }
+    path: /mot-de-passe-oublie
+
+fos_user_security_logout:
+    defaults: { _controller: FOSUserBundle:Security:logout }
+    path: /deconnexion
+

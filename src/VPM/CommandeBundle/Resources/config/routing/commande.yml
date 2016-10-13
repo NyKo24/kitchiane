@@ -1,0 +1,28 @@
+commande_index:
+    path:     /
+    defaults: { _controller: "VPMCommandeBundle:Commande:index" }
+    methods:  GET
+
+commande_show:
+    path:     /{id}/show
+    defaults: { _controller: "VPMCommandeBundle:Commande:show" }
+    methods:  GET
+
+commande_new:
+    path:     /new
+    defaults: { _controller: "VPMCommandeBundle:Commande:new" }
+    methods:  [GET, POST]
+
+commande_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VPMCommandeBundle:Commande:edit" }
+    methods:  [GET, POST]
+
+commande_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VPMCommandeBundle:Commande:delete" }
+    methods:  DELETE
+
+vpm_commande_historique:
+    path: /historique
+    defaults: { _controller: "VPMCommandeBundle:Commande:historique"}

@@ -1,0 +1,28 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+
+	<div class="row">
+		<p>Bienvenue sur votre compte. Vous pouvez y gérer vos informations personnelles ainsi que vos commandes.</p>
+	</div>
+
+	<div class="row">
+		<div class="col s4 m4 l4 center-align">
+			<a href="{{ path('vpm_espace_utilisateur_historique_commande') }}" class="btn">Historique de mes commandes</a>
+		</div>
+
+
+		<div class="col s4 m4 l4 center-align">
+			<a href="{{ path('vpm_espace_utilisateur_mesadresses') }}" class="btn">Mes adresses</a>
+		</div>
+
+		<div class="col s4 m4 l4 center-align">
+			<a href="{{ path('vpm_espace_utilisateur_mesinformations') }}" class="btn">Mes informations personnels</a>
+		</div>
+	</div>
+
+</div>
+{% endblock %}

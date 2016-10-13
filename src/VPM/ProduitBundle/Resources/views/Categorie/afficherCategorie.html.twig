@@ -1,0 +1,184 @@
+{% extends ':front:layout.html.twig' %}
+{% block titrePage %}{{categorie.nom}}{% endblock %}
+{% block metaDescription %}{{categorie.metaDescription}}{% endblock %}
+
+{% block metaKeyword %}{{categorie.metaKeyword}}{% endblock %}
+{% block body %}
+
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><h4>{{categorie.nom}} <span class="label label-default">{{categorie.produits|length }} produit{% if categorie.produits|length > 1 %}s{% endif %}</span></h4></div>
+</div>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><p>{{categorie.shortDescription}}</p></div>
+</div>
+{% if categorie.enfant|length != 0 %}
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<h5>
+				Sous catégories : 
+				{% for subCat in categorie.enfant %}
+					{% if loop.last %}
+						<a href="{{path('vpm_categorie_afficher',{'slug': subCat.slug})}}">{{subCat.nom}} <em>( {{subCat.produits|length }} produit{% if subCat.produits|length > 1 %}s{% endif %})</em></a> 
+					{% else %}
+						<a href="{{path('vpm_categorie_afficher',{'slug': subCat.slug})}}">{{subCat.nom}} <em>( {{subCat.produits|length }} produit{% if subCat.produits|length > 1 %}s{% endif %} )</em>,</a>
+					{% endif %}
+					
+				{% endfor %}		
+			</h5>
+		</div>
+	</div>
+{% endif %}
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><p>{{categorie.longDescription}}</p></div>
+</div>
+
+<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+		<form class="inline-form">
+			<label for="nbProduitPage">Nombre de produit par page :</label>
+			<select id="nbProduitPage" class="form-control">
+				<option {% if nbProduitPage == 10 %} " selected " {% endif %} value="10">10</option>
+				<option {% if nbProduitPage == 20 %} " selected " {% endif %} value="20">20</option>
+				<option {% if nbProduitPage == 36 %} " selected " {% endif %} value="36">36</option>
+			</select>
+		</form>
+		<br>
+		
+	</div>
+</div>
+
+		{% for produit in produits %}
+			<div class="row thumbnail">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<img class="img-responsive" src="{{ asset(produit.firstImage.path) }}" alt="{{ produit.firstImage.alt }}">
+					
+					<div class="btn-group btn-group-justified">
+						<a class="btn btn-info btn-group-" href="{{ path('vpm_produit_pageproduit', {slug: produit.slug} ) }}"><i class="fa fa-eye" aria-hidden="true"></i> Voir le produit</a>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<h1 class="liste-categorie"><a href="{{ path('vpm_produit_pageproduit', {slug: produit.slug} ) }}">{{ produit.nom }}</a></h1>
+					<p>{{ produit.shortDescription }}</p>
+					<hr>
+					<div class="row">
+						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+							<img class="img-responsive" src="{{asset(produit.marque.image.path)}}"> 
+						</div>
+						<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+							<a class="btn btn-info btn-xs">Voir tous les produits {{produit.marque.nom}} <span class="badge">{{produit.marque.produits|length}}</span></a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							{% if produit.tousModel %}
+								<p class="text-success"><i class="fa fa-check" aria-hidden="true"></i>Compatible pour tous les modèles de motos</p>
+							{% else %}
+								<p class="text-warning"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Ce produit est compatible qu'avec certaines moto. Reportez vous au tableau des correspondances présent sur la fiche produit.</p>
+							{% endif %}
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<p class="h2 text-center">{{ produit.prixTTC|number_format(2, ',', ' ') }} &euro;</p>
+					<p class="h3 text-center"><i class="fa fa-truck" aria-hidden="true"></i> Livraison offerte !</p>
+					<div class="btn-group btn-group-justified">
+						{% if produit.kitChaine %}
+							<a class="btn btn-success btn-group " href="{{ path('vpm_produit_pageproduit', {'slug': produit.slug}) }}"><i class="fa fa-cogs" aria-hidden="true"></i> Configurer le kit chaine</a>
+						{% else %}
+							<a class="btn btn-success btn-group btnAddPanier" data-idProduit="{{ produit.id }}" href=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Ajouter au panier</a>
+						{% endif %}
+						
+					</div>
+				</div>
+			</div>
+ {% endfor %}
+	
+
+<hr>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<nav aria-label="Page navigation">
+			<ul class="pagination">
+			    
+		    	{% if currentPage == 1 %}
+		    		<li class="disabled">
+			    		<a href="#" aria-label="Page précédente">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+			    	</li>
+			    {% else %}
+			    	<li>
+			    		<a href="{{ path('vpm_categorie_afficher',{'slug': slug,'page': currentPage-1 }) }}" aria-label="Page précédente">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+			    	</li>
+		    	{% endif %}
+				    
+			    {% for i in 1..nbPageTotal %}
+			    	{% if i == currentPage %}
+			    		<li class="active"><a href="{{ path('vpm_categorie_afficher',{'slug': slug,'page': i }) }}">{{i}}</a></li>
+			    	{% else %}
+			    		<li><a href="{{ path('vpm_categorie_afficher',{'slug': slug,'page': i }) }}">{{i}}</a></li>
+			    	{% endif %}
+				{% endfor %}
+			    
+			    {% if currentPage == nbPageTotal %}
+		    		<li class="disabled">
+				      <a href="#" aria-label="Page suivante">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+			    {% else %}
+			    	<li>
+				      <a href="{{ path('vpm_categorie_afficher',{'slug': slug,'page': currentPage+1 }) }}" aria-label="Page suivante">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+		    	{% endif %}
+			    
+			 </ul>
+		</nav>
+	</div>	
+</div>
+
+
+{% include 'VPMProduitBundle:Produit:modalAjoutPanier.html.twig' %} 
+ 
+{% endblock %}
+
+
+
+{% block javascript %}
+	{{ parent()}}
+	
+	<script type="text/javascript">
+		$("#nbProduitPage").on('change', function(event) {
+			window.location.href = "{{ path('vpm_categorie_afficher', {'slug': slug} ) }}" + "?nbProduitPage=" + $(this).val();
+		});
+		$(".btnAddPanier").on('click', function(event) {
+			event.preventDefault();
+			/* Act on the event */
+		});
+		$(".btnAddPanier").on('click', function(event) {
+			$("#modalAjoutPanier").modal('show');
+			produit = $(this).attr('data-idProduit');
+			nb = 1;
+			
+			$.post('{{path("vpm_panier_ajotuer")}}', {produitId: produit, quantite: nb}, function(data, textStatus, xhr) {
+				console.log(data);
+				if (textStatus == "success") {
+					$("#montantPanierMenu").html(data.total["totalTTC"]);
+					$("#modalSpinner").hide();
+					$(".modal-title").html('<i class="fa fa-check"></i>Votre produit a été ajouté au panier');
+					if (data.total.fdpHT == 0) {
+						$("#panierInfo > h4").html("Vous avez atteint le montant minimum ! Les frais de port sont offerts en Mondial Relay.");
+					}else{
+						$("#panierInfo > h4").html("Les frais de port sont de : " + data.total["fdpTTC"] + "&euro;.");
+					}
+				}
+			});
+		});
+	</script>
+{% endblock %}

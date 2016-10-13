@@ -1,0 +1,15 @@
+vpm_utilisateur_moncompte:
+    path: /moncompte
+    defaults: { _controller: "VPMUtilisateurBundle:Utilisateur:monCompte" }
+
+vpm_espace_utilisateur_historique_commande:
+    path: /mescommandes
+    defaults: { _controller: "VPMUtilisateurBundle:Utilisateur:historiqueCommande"}
+
+vpm_espace_utilisateur_mesadresses:
+    path: /mesadresses
+    defaults: { _controller: "VPMUtilisateurBundle:Utilisateur:mesAdresses"}
+
+vpm_espace_utilisateur_mesinformations:
+    path: /mesinformations
+    defaults: { _controller: "VPMUtilisateurBundle:Utilisateur:mesInformations"}

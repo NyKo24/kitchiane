@@ -1,0 +1,11 @@
+dev:
+    scheme: sftp
+    host: kitchaine.adviseme.fr
+    port: 22
+    user: web
+    pass: nicolas
+    check: true
+    path:
+        remote: /home/web/workspace/kitchaine
+    slots: 10
+    exclude: [".DS_Store", "vendor/","web/components/*"]

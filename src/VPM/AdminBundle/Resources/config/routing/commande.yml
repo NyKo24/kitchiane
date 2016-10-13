@@ -1,0 +1,32 @@
+admin_commande_index:
+    path:     /
+    defaults: { _controller: "VPMAdminBundle:Commande:index" }
+    methods:  GET
+
+admin_commande_show:
+    path:     /{id}/show
+    defaults: { _controller: "VPMAdminBundle:Commande:show" }
+    methods:  GET
+
+admin_commande_new:
+    path:     /new
+    defaults: { _controller: "VPMAdminBundle:Commande:new" }
+    methods:  [GET, POST]
+
+admin_commande_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "VPMAdminBundle:Commande:edit" }
+    methods:  [GET, POST]
+
+admin_commande_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "VPMAdminBundle:Commande:delete" }
+    methods:  DELETE
+
+admin_commande_generateEtiquetteMondialRelay:
+    path: /generationEtiquetteMondialRelay
+    defaults: { _controller: "VPMAdminBundle:Commande:generationEtiquetteMondialRelay"}
+
+admin_commande_generateEtiquetteColissimoLaPoste:
+    path: /generationEtiquetteColissimoLaPoste
+    defaults: { _controller: "VPMAdminBundle:Commande:generationEtiquetteColissimoLaPoste"}

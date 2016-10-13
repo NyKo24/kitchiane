@@ -1,0 +1,24 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="alert alert-success">
+			<h3><i class="fa fa-check" aria-hidden="true"></i> Votre commande a bien été validée !</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<p>Nous avons bien reçu votre paiement par {{ paiement }}.</p>
+		<p>Vous recevrez un mail dans quelques instants vous confirmant que votre commande numero <strong>{{ commande.reference }}</strong> a bien été validée. En pièce jointe ce trouvera la facture au format PDF.</p>
+		<p>Nous vous enverons un mail une fois que votre commande aura été expédié, il contiendra le numéro de suivis de votre colis.</p>
+		<p>Si vous avez une question n'éshitez pas à nous contacter.</p>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

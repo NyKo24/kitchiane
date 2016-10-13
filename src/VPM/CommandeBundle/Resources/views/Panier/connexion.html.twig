@@ -1,0 +1,75 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+{{ render(controller('VPMCommandeBundle:Panier:tabNav')) }}
+
+<div class="row container">
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 ">
+		<p class="h3 text-center" >J'ai déjà un compte : </p>
+			<br>
+			<p class="text-center"><a href="{{path('vpm_panier_livraison')}}" class="btn btn-primary"><i class="fa fa-sign-in" aria-hidden="true"></i> Connexion</a></p>
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<p class="h3 text-center">Je créé mon compte : </p>
+		<br>
+		<p class="text-center"><a class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Inscription</a></p>
+	</div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script type="text/javascript" src="{{ asset('selectTabPanier.js') }}"></script>
+	<script type="text/javascript">
+
+	jQuery(document).ready(function($) {
+		 $('ul.tabs').tabs();
+		desactiveTab = function()
+		{
+			$(".tabs").children('li').each(function(index, el) {
+				$(el).addClass('disabled');
+				$(el).children('a').removeClass();
+			});
+		}
+
+		switch('{{ app.request.attributes.get('_route') }}') {
+	    case "vpm_panier_afficher'":
+	        desactiveTab();
+	        $("#navPanier").addClass('active');
+	        $("#navPanier").parent().removeClass('disabled');
+
+	        break;
+	    case 'vpm_panier_connexion':
+	       desactiveTab();
+	        $("#navConnexion").addClass('active');
+	        $("#navConnexion").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_livraison':
+	       desactiveTab();
+	        $("#navAdresse").addClass('active');
+	        $("#navAdresse").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_transporteur':
+	       desactiveTab();
+	        $("#navLivraison").addClass('active');
+	        $("#navLivraison").parent().removeClass('disabled');
+	        break;
+
+	    case 'vpm_panier_paiement':
+	       desactiveTab();
+	        $("#navPaiement").addClass('active');
+	        $("#navPaiement").parent().removeClass('disabled');
+	        break;
+   
+		}	
+	});
+	</script>
+{% endblock %}

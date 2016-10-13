@@ -1,0 +1,147 @@
+{% extends ':front:layout.html.twig' %}
+
+{% block body %}
+{{ render(controller('VPMCommandeBundle:Panier:tabNav')) }}
+
+<div class="row container">
+	<div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<h3>Adresse</h3>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<h4 class="text-center">Livraison</h4>
+		<div class="row">
+
+			{% if livraison.id != 0 %}
+				<p>{{ livraison.prenom }}&nbsp;{{ livraison.nom }}</p>
+				<p>{{ livraison.ligne1 }}</p>
+				{% if livraison.ligne2 %}
+					<p>{{ livraison.ligne2 }}</p>
+				{% endif %}
+				{% if livraison.complement %}
+					<p>{{ livraison.complement }}</p>
+				{% endif %}
+				{% if livraison.cp and livraison.ville %}
+					<p>{{ livraison.cp }} - {{ livraison.ville }}</p>
+				{% endif %}
+				<p class="text-center">
+					<a class="btn-primary btn" href="#adresseLivraison"><i class="fa fa-truck" aria-hidden="true"></i> Modifier l'adresse de livraison</a>
+				</p>
+			 	
+
+			{% else %}
+				<p class="text-center">Vous n'avez pas encore renseigné d'adresse de livraison</p>
+			 	<p class="text-center">
+			 		<a data-toggle="modal" data-target="#modallivraison" class="btn-primary btn" href="#adresseLivraison"><i class="fa fa-truck" aria-hidden="true"></i> Ajouter l'adresse de livraison</a>
+			 	</p>
+			 	
+				
+			{% endif %}
+			
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<h4 class="text-center">Facturation</h4>
+		<div class="row">
+			{% if facturation.id != 0 %}
+				<p>{{ facturation.prenom }}&nbsp;{{ facturation.nom }}</p>
+				{% if facturation.societe %}
+					<p>{{ facturation.societe }}</p>
+				{% endif %}
+				{% if facturation.tva %}
+					<p>TVA : {{ facturation.tva }}</p>
+				{% endif %}
+				{% if facturation.siret %}
+					<p>SIRET : {{ facturation.siret }}</p>
+				{% endif %}
+
+				<p>{{ facturation.ligne1 }}</p>
+				
+				{% if facturation.ligne2 %}
+					<p>{{ facturation.ligne2 }}</p>
+				{% endif %}
+				
+				{% if facturation.complement %}
+					<p>{{ facturation.complement }}</p>
+				{% endif %}
+
+				{% if facturation.cp and facturation.ville %}
+					<p>{{ facturation.cp }} - {{ facturation.ville }}</p>
+				{% endif %}
+					
+				<p class="text-center">
+					<a class="btn-primary btn" href="#adresseFacturation"><i class="fa fa-file-text-o" aria-hidden="true"></i> Modifier l'adresse de facturation</a>
+				</p>
+				
+				
+				{% else %}
+					<p class="text-center">Vous n'avez pas encore renseigné d'adresse de facturation</p>
+					<p class="text-center">
+						<a data-toggle="modal" data-target="#modalFacturation" class="btn-primary btn"><i class="fa fa-file-text-o" aria-hidden="true"></i> Ajouter l'adresse de facturation</a>
+					</p>
+					
+
+			{% endif %}
+			
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			{% if livraison.id != 0 and facturation.id != 0 %}
+				<p class="text-center"><a class="btn btn-info btn-lg" href="{{ path('vpm_panier_transporteur')}}">Sélectionner le transporteur</a></p>
+			{% else %}
+				<p class="text-center">Vous devez d'abord renseinger une adresse de livration ET de facturation.</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<!-- Modal Facturation-->
+<div class="modal fade" id="modalFacturation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adresse de facturation</h4>
+      </div>
+      <div class="modal-body">
+       {{form_start(formFacturation, {'attr': {'action': path('adresse_sauver_facturation')}}  )}}
+		{{ form_widget(formFacturation)}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer l'adresse de facturation</button>
+        {{form_end(formFacturation)}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Livraison-->
+<div class="modal fade" id="modallivraison" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Adresse de livraison</h4>
+      </div>
+      <div class="modal-body">
+        {{ form_start(formLivraison, {'attr': {'action': path('adresse_sauver_livraison')}})}}
+		{{ form_widget(formLivraison)}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+        <button type="submit" class="btn btn-primary">Enregistrer l'adresse de livraison</button>
+        {{ form_end(formLivraison)}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+{% endblock %}
