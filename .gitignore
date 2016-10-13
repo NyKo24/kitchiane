@@ -19,3 +19,4 @@
 /node_modules
 dploy.yml
 /web/statique/image/*
+/chat/node_modules
